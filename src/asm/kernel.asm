@@ -2,7 +2,7 @@
 ;; ==============================
     ;; Print Menu
 main_menu:
-    call resetTextScreen
+    call clear_screen_text_mode
 
     mov si, kernel_header
     call printString
@@ -28,6 +28,13 @@ keyloop:
     je run_cmd
 
     int 0x10
+    cmp al, 0x08        ; backspace
+    jne .not_backspace
+    dec si
+    dec cx
+    jmp keyloop
+
+    .not_backspace:
     mov [si], al        ; store input char to string
     inc cx              ; increment byte counter of input
     inc si              ; go to next byte in di/cmdString
@@ -263,7 +270,7 @@ shutdown:
     out dx, ax
 
 clear_screen:
-    call resetTextScreen
+    call clear_screen_text_mode
     jmp get_input
 
         ;; ============================
@@ -296,7 +303,7 @@ print_blanks_loop:
 %include "../src/print/print_registers.asm"
 %include "../src/print/print_fileTable.asm"
 ;; %include "../src/screen/clearScreen.asm"
-%include "../src/screen/resetTextScreen.asm"
+%include "../src/screen/clear_screen_text_mode.asm"
 %include "../src/screen/resetGraphicsScreen.asm"
 
         ;; ============================

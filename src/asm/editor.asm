@@ -10,7 +10,7 @@ VIDMEM equ 0x0B800
 	;; -------------------------------
 
 reset_editor:
-	call resetTextScreen
+	call clear_screen_text_mode
 
 	mov ax, VIDMEM
 	mov es, ax
@@ -83,7 +83,7 @@ end_editor:
 
 	jmp 0x2000:0x0000
 
-%include "../src/screen/resetTextScreen.asm"
+%include "../src/screen/clear_screen_text_mode.asm"
 %include "../src/print/print_string.asm"
 
 	;; Variables

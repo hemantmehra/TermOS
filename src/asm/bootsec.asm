@@ -39,20 +39,28 @@ load_kernel:
 
     jc load_kernel ; retry
 
-;; -------------------------
-;; Segmenting
-;; -------------------------
-mov ax, 0x2000
-mov ds, ax
-mov es, ax
-mov fs, ax
-mov gs, ax
+    ;; -------------------------
+    ;; Segmenting
+    ;; -------------------------
+    mov ax, 0x2000
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
 
-mov sp, 0xFFFF
-mov ax, 0x9000
-mov ss, ax
+    mov sp, 0xFFFF
+    mov ax, 0x9000
+    mov ss, ax
 
-jmp 0x2000:0x0
+    ;; Set uo video mode
+    mov ax, 0x0003
+    int 0x10
+
+    mov ah, 0x0B
+    mov bx, 0x0001
+    int 0x10 
+
+    jmp 0x2000:0x0
 
 times 510-($-$$) db 0
 dw 0xaa55
