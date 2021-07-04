@@ -5,7 +5,7 @@ print_fileTable:
     call printString
 
     xor cx, cx
-    mov ax, 0x1000
+    mov ax, 0x100
     mov es, ax
     xor bx, bx
     mov ah, 0x0e

@@ -6,7 +6,7 @@ call printString
 mov ah, 0x00
 int 0x16
 
-mov ax, 0x2000
+mov ax, 0x200
 mov es, ax
 
 xor bx, bx
@@ -15,7 +15,7 @@ mov ds, ax
 mov es, ax
 mov fs, ax
 mov gs, ax
-jmp 0x2000:0x0000
+jmp 0x200:0x0000
 
 %include "../include/print/print_string.asm"
 %include "../include/screen/clear_screen_text_mode.asm"

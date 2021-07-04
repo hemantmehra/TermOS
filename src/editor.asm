@@ -22,7 +22,7 @@ reset_editor:
 
 	rep movsw
 
-	mov ax, 0x8000
+	mov ax, 0x800
 	mov es, ax
 
 	xor cx, cx
@@ -72,7 +72,7 @@ get_hex_num:
 	jmp return_from_hex_num
 
 end_editor:
-	mov ax, 0x2000
+	mov ax, 0x200
 	mov es, ax
 	xor bx, bx
 
@@ -81,7 +81,7 @@ end_editor:
 	mov fs, ax
 	mov gs, ax
 
-	jmp 0x2000:0x0000
+	jmp 0x200:0x0000
 
 %include "../include/screen/clear_screen_text_mode.asm"
 %include "../include/print/print_string.asm"

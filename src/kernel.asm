@@ -14,7 +14,7 @@ get_input:
     xor cx, cx
     mov si, cmdString
 
-    mov ax, 0x2000  ; reset to 0x2000 kernel area
+    mov ax, 0x200  ; reset to 0x2000 kernel area
     mov es, ax
     mov ds, ax
 
@@ -98,7 +98,7 @@ check_command:
     pop cx
 
 check_file:
-    mov ax, 0x1000
+    mov ax, 0x100
     mov es, ax
     xor bx, bx
     mov si, cmdString
@@ -154,7 +154,7 @@ found_program:
     mov dl, 0x00
     int 0x13            ; reset disk system
 
-    mov ax, 0x8000
+    mov ax, 0x800
     mov es, ax
     mov al, bl          ; # of sectors to read
     xor bx, bx          ; ES:BX = 0x8000:0x0000
@@ -174,21 +174,21 @@ found_program:
 run_program:
     mov cx, 3
     mov si, fileExt
-    mov ax, 0x2000
+    mov ax, 0x200
     mov es, ax
     mov di, fileBin
     repe cmpsb
     jne print_text_file
 
-    mov ax, 0x8000
+    mov ax, 0x800
     mov ds, ax
     mov es, ax
     mov fs, ax
     mov gs, ax
-    jmp 0x8000:0x0000
+    jmp 0x800:0x0000
 
 print_text_file:
-    mov ax, 0x8000
+    mov ax, 0x800
     mov es, ax
     xor cx, cx
     mov ah, 0x0e

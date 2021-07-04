@@ -4,14 +4,12 @@ org 0x7c00
 ;; -------------------------
 ;; Load file Table
 ;; -------------------------
-mov BX, 0x1000 ; load sector to mem 0x1000
+mov bx, 0x100 ; load sector to mem 0x1000
 mov es, bx     ; ES = 0x1000
-mov bx, 0x0      ; ES:BX = 0x1000:0
+xor bx, bx      ; ES:BX = 0x1000:0
 
-mov dh, 0x0 ; no of sector
-mov dl, 0x0 ; drive number
-mov ch, 0x0 ; cylinder 0
-mov cl, 0x06 ; starting sector
+xor dx, dx      ; dh = head, dl = drive
+mov cx, 0x0006  ; ch = cylinder, cl = starting sector to read
 
 load_fileTable:
     mov ah, 0x02 ; BIOS int 13/0x02 read disk sector
@@ -23,14 +21,12 @@ load_fileTable:
 ;; -------------------------
 ;; Load Kernel
 ;; -------------------------
-mov BX, 0x2000 ; load sector to mem 0x2000
-mov es, bx     ; ES = 0x1000
-mov bx, 0x0      ; ES:BX = 0x1000:0
+mov BX, 0x200   ; load sector to mem 0x2000
+mov es, bx      ; ES = 0x1000
+xor bx, bx      ; ES:BX = 0x1000:0
 
-mov dh, 0x0 ; no of sector
-mov dl, 0x0 ; drive number
-mov ch, 0x0 ; cylinder 0
-mov cl, 0x02 ; starting sector
+xor dx, dx      ; dh = head, dl = drive
+mov cx, 0x0002  ; ch = cylinder, cl = starting sector to read
 
 load_kernel:
     mov ah, 0x02 ; BIOS int 13/0x02 read disk sector
@@ -42,14 +38,14 @@ load_kernel:
     ;; -------------------------
     ;; Segmenting
     ;; -------------------------
-    mov ax, 0x2000
+    mov ax, 0x200
     mov ds, ax
     mov es, ax
     mov fs, ax
     mov gs, ax
 
     mov sp, 0xFFFF
-    mov ax, 0x9000
+    mov ax, 0x900
     mov ss, ax
 
     ;; Set uo video mode
@@ -60,7 +56,7 @@ load_kernel:
     mov bx, 0x0001
     int 0x10 
 
-    jmp 0x2000:0x0
+    jmp 0x200:0x0
 
 times 510-($-$$) db 0
 dw 0xaa55
