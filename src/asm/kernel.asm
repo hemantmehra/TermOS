@@ -82,6 +82,13 @@ check_command:
     je clear_screen
 
     pop cx
+    push cx
+    mov di, cmdShutdown
+    mov si, cmdString
+    rep cmpsb
+    je shutdown
+
+    pop cx
 
 check_file:
     mov ax, 0x1000
@@ -171,7 +178,6 @@ run_program:
     mov es, ax
     mov fs, ax
     mov gs, ax
-    mov ss, ax
     jmp 0x8000:0x0000
 
 print_text_file:
@@ -181,11 +187,7 @@ print_text_file:
     mov ah, 0x0e
 
 add_cx_size:
-    cmp byte [fileSize], 0
-    je print_file_char
-    add cx, 512
-    dec byte [fileSize]
-    jne add_cx_size
+    imul cx, word [fileSize], 512
 
 print_file_char:
     mov al, [ES:BX]
@@ -255,6 +257,11 @@ squareColLoop:
     int 0x16
     jmp main_menu
 
+shutdown:
+    mov ax, 2000h
+    mov dx, 604h
+    out dx, ax
+
 clear_screen:
     call resetTextScreen
     jmp get_input
@@ -301,13 +308,14 @@ prompt: db '> ', 0
 success: db 0xA, 0xD, 'Loaded', 0xA, 0xD, 0
 failure: db 0xA, 0xD, 'Command not found', 0xA, 0xD, 0
 
-cmdDir:     db 'dir', 0
-cmdReboot:  db 'reboot', 0
-cmdPrtreg:  db 'prtreg', 0
-cmdGfxtest: db 'gfxtest', 0
-cmdHlt:     db 'hlt', 0
-cmdCls:     db 'cls', 0
-cmdEditor:  db 'editor', 0
+cmdDir:         db 'dir', 0
+cmdReboot:      db 'reboot', 0
+cmdPrtreg:      db 'prtreg', 0
+cmdGfxtest:     db 'gfxtest', 0
+cmdHlt:         db 'hlt', 0
+cmdCls:         db 'cls', 0
+cmdShutdown:    db 'shutdown', 0
+cmdEditor:      db 'editor', 0
 
 file_header: db 0xA, 0xD,\
                 '-------------------------------------------------------------', 0xA, 0xD,\
@@ -335,4 +343,4 @@ cmdString: db ''
         ;;  Sector Padding Magic
         ;; ============================
 
-times 1536-($-$$) db 0
+times 2048-($-$$) db 0

@@ -11,14 +11,14 @@ mov bx, 0x0      ; ES:BX = 0x1000:0
 mov dh, 0x0 ; no of sector
 mov dl, 0x0 ; drive number
 mov ch, 0x0 ; cylinder 0
-mov cl, 0x05 ; starting sector
+mov cl, 0x06 ; starting sector
 
-read_disk1:
+load_fileTable:
     mov ah, 0x02 ; BIOS int 13/0x02 read disk sector
     mov al, 0x01 ; # of sector to read
     int 0x13
 
-    jc read_disk1 ; retry
+    jc load_fileTable ; retry
 
 ;; -------------------------
 ;; Load Kernel
@@ -32,12 +32,12 @@ mov dl, 0x0 ; drive number
 mov ch, 0x0 ; cylinder 0
 mov cl, 0x02 ; starting sector
 
-read_disk2:
+load_kernel:
     mov ah, 0x02 ; BIOS int 13/0x02 read disk sector
-    mov al, 0x03 ; # of sector to read
+    mov al, 0x04 ; # of sector to read
     int 0x13
 
-    jc read_disk2 ; retry
+    jc load_kernel ; retry
 
 ;; -------------------------
 ;; Segmenting
@@ -47,6 +47,9 @@ mov ds, ax
 mov es, ax
 mov fs, ax
 mov gs, ax
+
+mov sp, 0xFFFF
+mov ax, 0x9000
 mov ss, ax
 
 jmp 0x2000:0x0

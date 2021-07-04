@@ -12,9 +12,9 @@
 ;;  0-9		     10-12  13   14   15
 
 db 'bootsec   ', 'bin', 00h, 01h, 01h, \
-   'kernel    ', 'bin', 00h, 02h, 03h, \
-   'fileTable ', 'txt', 00h, 05h, 01h, \
-   'calculator', 'bin', 00h, 06h, 01h, \
-   'editor    ', 'bin', 00h, 07h, 02h
+   'kernel    ', 'bin', 00h, 02h, 04h, \
+   'fileTable ', 'txt', 00h, 06h, 01h, \
+   'calculator', 'bin', 00h, 07h, 01h, \
+   'editor    ', 'bin', 00h, 08h, 02h
 
 times 512-($-$$) db 0

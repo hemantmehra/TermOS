@@ -15,7 +15,6 @@ mov ds, ax
 mov es, ax
 mov fs, ax
 mov gs, ax
-mov ss, ax
 jmp 0x2000:0x0000
 
 %include "../src/print/print_string.asm"
