@@ -1,4 +1,4 @@
-call resetTextScreen
+call clear_screen_text_mode
 
 mov si, testMsg
 call printString
@@ -17,8 +17,8 @@ mov fs, ax
 mov gs, ax
 jmp 0x2000:0x0000
 
-%include "../src/print/print_string.asm"
-%include "../src/screen/resetTextScreen.asm"
+%include "../include/print/print_string.asm"
+%include "../include/screen/clear_screen_text_mode.asm"
 
 testMsg: db 'Program Loaded!', 0
 

@@ -83,8 +83,8 @@ end_editor:
 
 	jmp 0x2000:0x0000
 
-%include "../src/screen/clear_screen_text_mode.asm"
-%include "../src/print/print_string.asm"
+%include "../include/screen/clear_screen_text_mode.asm"
+%include "../include/print/print_string.asm"
 
 	;; Variables
 	;; -------------------------------

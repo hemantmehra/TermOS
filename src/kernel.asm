@@ -298,13 +298,13 @@ print_blanks_loop:
     loop print_blanks_loop
     ret
 
-%include "../src/print/print_string.asm"
-%include "../src/print/print_hex.asm"
-%include "../src/print/print_registers.asm"
-%include "../src/print/print_fileTable.asm"
-;; %include "../src/screen/clearScreen.asm"
-%include "../src/screen/clear_screen_text_mode.asm"
-%include "../src/screen/resetGraphicsScreen.asm"
+%include "../include/print/print_string.asm"
+%include "../include/print/print_hex.asm"
+%include "../include/print/print_registers.asm"
+%include "../include/print/print_fileTable.asm"
+;; %include "../include/screen/clearScreen.asm"
+%include "../include/screen/clear_screen_text_mode.asm"
+%include "../include/screen/resetGraphicsScreen.asm"
 
         ;; ============================
         ;;  Variables
