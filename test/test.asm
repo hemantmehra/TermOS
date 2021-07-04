@@ -1,0 +1,11 @@
+
+mov ax, 0x0600
+xor cx, cx
+mov dx, 0x1950
+
+int 0x10
+
+mov ax, 0x0e54
+int 0x10
+
+hlt
